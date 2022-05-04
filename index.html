@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Synanetics Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+  </style>
+</head>
+
+<body>
+  <input id="url" type="url" placeholder="Enter URL" pattern="https?://.+" />
+  <button onclick="submit()">Submit</button>
+  <div id="result"></div>
+
+
+  <script>
+    async function submit() {
+      const baseUrl = new URL('http://localhost:3000/api/word/count');
+      var targetUrl = document.getElementById("url").value;
+      if (targetUrl.length == 0) {
+        return;
+      }
+      baseUrl.searchParams.set('url', encodeURIComponent(targetUrl));
+      const response = await fetch(baseUrl);
+      const text = await response.json();
+      document.getElementById("result").innerHTML = text;
+    }
+  </script>
+</body>
+
+</html>
